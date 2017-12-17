@@ -23,16 +23,18 @@ import lombok.val;
 
 public class LogbackConfiguration extends ContextAwareBase implements Configurator {
 
+    private static final String LOG_DIR = System.getProperty("catalina.base") + "/logs";
+
+    private static final String PROJECT_NAME = "spring_test";
+
     @Override
     public void configure(LoggerContext loggerContext) {
-        loggerContext.putObject("logDir", "logs");
-        loggerContext.putObject("projectName", "spring_test");
-
         val rootLogFileAppender = buildRollingFileAppender(loggerContext, "INFO",
-                "${logDir}/${projectName}.%d{yyyy-MM-dd}.log");
-        val errorLogAppender = buildRollingFileAppender(loggerContext, "WARN", "${logDir}/error.%d{yyyy-MM-dd}.log");
+                String.format("%s/%s.%%d{yyyy-MM-dd}.log", LOG_DIR, PROJECT_NAME));
+        val errorLogAppender = buildRollingFileAppender(loggerContext, "WARN",
+                String.format("%s/error.%%d{yyyy-MM-dd}.log", LOG_DIR));
         val businessExceptionLogAppender = buildRollingFileAppender(loggerContext, "WARN",
-                "${logDir}/business_exception.%d{yyyy-MM-dd}.log");
+                String.format("%s/business_exception.%%d{yyyy-MM-dd}.log", LOG_DIR));
         val consoleAppender = buildConsoleAppender(loggerContext, "INFO");
 
         val rootLogger = loggerContext.getLogger(Logger.ROOT_LOGGER_NAME);
@@ -78,7 +80,7 @@ public class LogbackConfiguration extends ContextAwareBase implements Configurat
         val result = new PatternLayoutEncoder();
         result.setContext(context);
         result.setCharset(charset);
-        result.setPattern("[%d{yyyy-MM-dd HH:mm} %5p %C:%L] %m%n");
+        result.setPattern("[%d{yyyy-MM-dd HH:mm:ss} %5p %C:%L] %m%n");
         result.start();
         return result;
     }
