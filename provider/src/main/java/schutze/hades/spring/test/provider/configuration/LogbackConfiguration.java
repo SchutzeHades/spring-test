@@ -55,7 +55,6 @@ public class LogbackConfiguration extends ContextAwareBase implements Configurat
         return result;
     }
 
-    @SuppressWarnings("unchecked")
     private RollingFileAppender<ILoggingEvent> buildRollingFileAppender(Context context, String level,
             String fileNamePattern) {
         val result = new RollingFileAppender<ILoggingEvent>();
