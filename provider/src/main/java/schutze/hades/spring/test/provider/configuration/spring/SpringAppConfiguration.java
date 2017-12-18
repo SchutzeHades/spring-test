@@ -15,7 +15,7 @@ import lombok.val;
 
 @Configuration
 @ComponentScan(basePackages = "schutze.hades.spring.test.provider", //
-        excludeFilters = @ComponentScan.Filter(type = FilterType.REGEX, pattern = "^schutze\\.hades\\.spring\\.test\\.provider\\.web\\..+$"))
+        excludeFilters = @ComponentScan.Filter(type = FilterType.REGEX, pattern = "^schutze\\.hades\\.spring\\.test\\.provider\\.(web|configuration)\\..+$"))
 @Import({ //
         SpringSchedulingConfiguration.class, //
         SpringAsyncConfiguration.class //

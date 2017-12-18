@@ -22,6 +22,8 @@ public class SpringAsyncConfiguration implements AsyncConfigurer {
         result.setMaxPoolSize(10);
         result.setKeepAliveSeconds(0);
         result.setQueueCapacity(100);
+        result.setWaitForTasksToCompleteOnShutdown(true);
+        result.setAwaitTerminationSeconds(10);
         result.setThreadNamePrefix("custom-task-executor");
         return result;
     }

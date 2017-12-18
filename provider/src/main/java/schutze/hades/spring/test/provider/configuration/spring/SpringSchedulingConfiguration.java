@@ -24,6 +24,8 @@ public class SpringSchedulingConfiguration implements SchedulingConfigurer {
         val result = new ThreadPoolTaskScheduler();
         result.setPoolSize(10);
         result.setThreadNamePrefix("custom-task-scheduler");
+        result.setWaitForTasksToCompleteOnShutdown(true);
+        result.setAwaitTerminationSeconds(10);
         return result;
     }
 }
