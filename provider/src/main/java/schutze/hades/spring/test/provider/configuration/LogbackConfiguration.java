@@ -44,6 +44,7 @@ public class LogbackConfiguration extends ContextAwareBase implements Configurat
 
         val businessExceptionLogger = loggerContext.getLogger("businessExceptionLogger");
         businessExceptionLogger.addAppender(businessExceptionLogAppender);
+        businessExceptionLogger.setAdditive(false);
     }
 
     private ConsoleAppender<ILoggingEvent> buildConsoleAppender(Context context, String level) {
