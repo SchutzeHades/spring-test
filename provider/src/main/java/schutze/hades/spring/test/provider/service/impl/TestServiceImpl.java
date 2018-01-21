@@ -4,10 +4,10 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import lombok.SneakyThrows;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 import schutze.hades.spring.test.provider.service.TestService;
 
-@Slf4j
+@Log4j2
 @Service("testService")
 public class TestServiceImpl implements TestService {
 
@@ -17,6 +17,7 @@ public class TestServiceImpl implements TestService {
     public void asyncTest() {
         while (true) {
             log.info("Async operation.");
+            log.warn("Pretend to be an exception.");
             Thread.sleep(5000L);
         }
     }

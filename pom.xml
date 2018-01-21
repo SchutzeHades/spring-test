@@ -23,8 +23,6 @@
         <cglib.version>3.2.5</cglib.version>
         <com.fasterxml.jackson.version>2.9.3</com.fasterxml.jackson.version>
         <hc.httpclient.version>4.5.4</hc.httpclient.version>
-        <org.slf4j.version>1.7.24</org.slf4j.version>
-        <logback.version>1.2.3</logback.version>
         <guava.version>23.5-jre</guava.version>
         <com.google.code.findbugs.version>3.0.2</com.google.code.findbugs.version>
         <org.apache.commons.version>3.7</org.apache.commons.version>
@@ -32,6 +30,7 @@
         <mysql.version>5.1.45</mysql.version>
         <org.mybatis.mybatis.version>3.4.5</org.mybatis.mybatis.version>
         <org.mybatis.spring.version>1.3.1</org.mybatis.spring.version>
+        <org.apache.logging.log4j.version>2.10.0</org.apache.logging.log4j.version>
         <maven_jar_plugin_version>3.0.2</maven_jar_plugin_version>
         <maven_war_plugin_version>3.2.0</maven_war_plugin_version>
         <maven_compiler_plugin_version>3.6.2</maven_compiler_plugin_version>
@@ -78,34 +77,14 @@
                 <version>${com.fasterxml.jackson.version}</version>
             </dependency>
             <dependency>
+                <groupId>com.fasterxml.jackson.dataformat</groupId>
+                <artifactId>jackson-dataformat-yaml</artifactId>
+                <version>${com.fasterxml.jackson.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.apache.httpcomponents</groupId>
                 <artifactId>httpclient</artifactId>
                 <version>${hc.httpclient.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>jul-to-slf4j</artifactId>
-                <version>${org.slf4j.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>jcl-over-slf4j</artifactId>
-                <version>${org.slf4j.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>log4j-over-slf4j</artifactId>
-                <version>${org.slf4j.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-api</artifactId>
-                <version>${org.slf4j.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>ch.qos.logback</groupId>
-                <artifactId>logback-classic</artifactId>
-                <version>${logback.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.google.guava</groupId>
@@ -141,6 +120,13 @@
                 <groupId>org.mybatis</groupId>
                 <artifactId>mybatis-spring</artifactId>
                 <version>${org.mybatis.spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-bom</artifactId>
+                <version>${org.apache.logging.log4j.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
             </dependency>
         </dependencies>
     </dependencyManagement>

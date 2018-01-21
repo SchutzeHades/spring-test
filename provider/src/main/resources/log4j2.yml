@@ -1,0 +1,70 @@
+Configuration:
+    status: info
+    name: YAMLConfigTest
+    properties:
+        property:
+            - name: logDir
+              value: ${sys:catalina.base}/logs
+            - name: projectName
+              value: spring_test
+    thresholdFilter:
+        level: debug
+    appenders:
+        Console:
+            name: console
+            PatternLayout:
+                Pattern: "[%d{yyyy-MM-dd HH:mm:ss} %5p %C{1}:%L] %m%n"
+            Filters:
+                ThresholdFilter:
+                    level: info
+        RollingFile:
+            - name: rootLogAppender
+              # 这个fileName如果不写的话,会出现一个坑.现象是日志虽然会轮转,但是当前写的日志文件名依然没有变.
+              # 举个例子:
+              # 2018-01-21轮转到2018-01-22.轮转的时候会生成一个2018-01-21的压缩包(因为配了.gz),同时会去尝试删除2018-01-21的文件
+              # 但是由于当前写的日志文件依然是2018-01-21,就会导致删除失败.
+              # 暂时不清楚原理
+              # 然而这个fileName还不能解析%d这一类表达式,所以只能用占位符${date:yyyy-MM-dd}了
+              fileName: "${logDir}/${projectName}.log"
+              filePattern: "${logDir}/${projectName}.%d{yyyy-MM-dd}.log.gz"
+              PatternLayout:
+                  Pattern: "[%d{yyyy-MM-dd HH:mm:ss} %5p %C{1}:%L] %m%n"
+              Policies:
+                  TimeBasedTriggeringPolicy: {}
+              Filters:
+                  ThresholdFilter:
+                      level: info
+            - name: businessExceptionLogAppender
+              fileName: "${logDir}/business_exception.log"
+              filePattern: "${logDir}/business_exception.%d{yyyy-MM-dd}.log.gz"
+              PatternLayout:
+                  Pattern: "[%d{yyyy-MM-dd HH:mm:ss} %5p %C{1}:%L] %m%n"
+              Policies:
+                  TimeBasedTriggeringPolicy: {}
+              Filters:
+                  ThresholdFilter:
+                      level: warn
+            - name: errorLogAppender
+              fileName: "${logDir}/error.log"
+              filePattern: "${logDir}/error.%d{yyyy-MM-dd}.log.gz"
+              PatternLayout:
+                  Pattern: "[%d{yyyy-MM-dd HH:mm:ss} %5p %C{1}:%L] %m%n"
+              Policies:
+                  TimeBasedTriggeringPolicy: {}
+              Filters:
+                  ThresholdFilter:
+                      level: warn
+
+    Loggers:
+        logger:
+            name: businessExceptionLogger
+            level: warn
+            additivity: false
+            AppenderRef:
+                ref: businessExceptionLogAppender
+        Root:
+            level: info
+            AppenderRef:
+                - ref: console
+                - ref: rootLogAppender
+                - ref: errorLogAppender
