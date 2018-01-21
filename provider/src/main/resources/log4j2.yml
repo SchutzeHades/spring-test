@@ -23,8 +23,8 @@ Configuration:
               # 举个例子:
               # 2018-01-21轮转到2018-01-22.轮转的时候会生成一个2018-01-21的压缩包(因为配了.gz),同时会去尝试删除2018-01-21的文件
               # 但是由于当前写的日志文件依然是2018-01-21,就会导致删除失败.
-              # 暂时不清楚原理
-              # 然而这个fileName还不能解析%d这一类表达式,所以只能用占位符${date:yyyy-MM-dd}了
+              # 即使写了fileName,如果文件里面包括日期比如使用了占位符${date:yyyy-MM-dd},发生轮转时,写入的文件依然是2018-01-21的文件
+              # log4j这个坑,都log4j2了怎么就不能跟人logback学学...
               fileName: "${logDir}/${projectName}.log"
               filePattern: "${logDir}/${projectName}.%d{yyyy-MM-dd}.log.gz"
               PatternLayout:
